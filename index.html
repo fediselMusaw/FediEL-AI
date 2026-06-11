@@ -1,154 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FediEl-AI Clinical Pharmacy Assistant</title>
-    <link rel="stylesheet" href="styles.css" />
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FediEL-AI - Plateforme Éducative</title>
     <style>
-      /* Petit style discret pour positionner le bouton de langue en haut à droite */
-      .lang-switcher {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 10;
-      }
-      .lang-switcher select {
-        padding: 8px 12px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        background-color: white;
-        font-weight: 600;
-        cursor: pointer;
-        font-family: inherit;
-      }
-      .app-shell {
-        position: relative;
-      }
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; line-height: 1.6; max-width: 800px; margin: auto; }
+        .disclaimer { background: #fff3cd; padding: 15px; border-left: 5px solid #ffc107; margin-bottom: 20px; font-size: 0.9em; }
+        nav { background: #f4f4f4; padding: 10px; display: flex; gap: 10px; flex-wrap: wrap; border-radius: 8px; margin-bottom: 20px; }
+        nav button { padding: 10px 20px; cursor: pointer; background-color: #f4f4f4; border: 1px solid #ccc; border-radius: 5px; transition: 0.3s; }
+        nav button:hover { background-color: #ddd; }
+        nav button.active-nav { background-color: #007bff; color: white; border-color: #0056b3; }
+        .section-content { display: none; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        .active { display: block; }
+        textarea { width: 100%; height: 120px; margin-bottom: 10px; padding: 10px; }
     </style>
-  </head>
-  <body>
-    <div class="app-shell">
-      <div class="lang-switcher">
-        <select id="lang-select" onchange="switchLanguage(this.value)">
-          <option value="en">🇺🇸 English</option>
-          <option value="fr">🇫🇷 Français</option>
-        </select>
-      </div>
+</head>
+<body>
 
-      <header class="site-header">
-        <div class="brand-lockup">
-          <div class="logo-frame" aria-hidden="true">
-            <img
-              src="logo.png"
-              alt="FediEl Pharmacy Emblem"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
-            />
-            <span class="logo-fallback">⚕️</span>
-          </div>
-          <div>
-            <p class="project-title">FediEl-AI</p>
-            <h1 id="main-title">FediEl AI — Clinical Pharmacy &amp; Pharmacovigilance Assistant</h1>
-          </div>
-        </div>
-      </header>
-
-      <main class="clinical-workspace">
-        <section class="screening-panel" aria-labelledby="screening-title">
-          <div class="panel-heading">
-            <p id="classroom-tag" class="eyebrow">Secure classroom demonstration</p>
-            <h2 id="screening-title">Clinical Pharmacological Screening</h2>
-          </div>
-
-          <form id="screening-form">
-            <label for="regimen" id="label-regimen">
-              🔬 Patient Treatment Regimen / Active Compounds &amp; Student Study Guide Mode:
-            </label>
-            <textarea
-              id="regimen"
-              name="regimen"
-              rows="8"
-              placeholder="e.g., Aspirin 81mg + Warfarin, or Metformin history..."
-              required
-            ></textarea>
-            <button type="submit" id="run-button">⚡ Run Pharmacological Screening</button>
-          </form>
-        </section>
-
-        <section class="report-panel" aria-live="polite">
-          <div class="panel-heading">
-            <p id="ai-tag" class="eyebrow">AI generated clinical support</p>
-            <h2 id="report-title">📋 Pharmacovigilance Report &amp; PharmD Study Guide Analysis</h2>
-          </div>
-          <div id="status" class="status-message">
-            Enter a regimen to generate an interaction, contraindication, adverse effect, and study-note report.
-          </div>
-          <article id="report" class="report-output"></article>
-        </section>
-      </main>
+    <h1>FediEL-AI</h1>
+    
+    <div class="disclaimer">
+        <strong>Avertissement :</strong> FediEL-AI est une plateforme expérimentale à but éducatif uniquement. Les informations générées par l'IA ne constituent pas un avis médical ou un diagnostic professionnel.
     </div>
 
-    <footer id="site-footer">
-      © 2026 FediEl AI | Founded by Fedisel Musaw | Soli Deo Gloria
-    </footer>
+    <nav>
+        <button class="active-nav" onclick="showSection('chat', this)">Assistant IA</button>
+        <button onclick="showSection('tools', this)">Outils Études</button>
+        <button onclick="showSection('survey', this)">Survey Santé</button>
+    </nav>
+
+    <div id="chat" class="section-content active">
+        <h2>Assistant IA</h2>
+        <p>Posez votre question sur vos cours ou la pharmacologie.</p>
+        <textarea id="chatInput" placeholder="Posez votre question ici..." style="width: 100%; height: 80px;"></textarea>
+        <br>
+        <button onclick="envoyerMessage()">Envoyer</button>
+        <div id="chatResponse" style="margin-top: 15px; padding: 10px; border: 1px dashed #ccc;">
+            <em>La réponse de l'assistant s'affichera ici...</em>
+        </div>
+    </div>
+
+    <div id="tools" class="section-content">
+        <h2>Outils d'Apprentissage</h2>
+        <textarea id="docInput" placeholder="Collez votre document ou texte ici..."></textarea>
+        <br>
+        <button onclick="process('summarize')">Résumer</button>
+        <button onclick="process('flashcards')">Générer Flashcards</button>
+        <button onclick="process('quiz')">Préparer un Quiz</button>
+        <div id="toolResult" style="margin-top:15px; padding:10px; border-top:1px solid #ccc;"></div>
+    </div>
+
+    <div id="survey" class="section-content">
+        <h2>Survey : Alimentation & Environnement</h2>
+        <form id="surveyForm">
+            <p>1. Privilégiez-vous les produits locaux et de saison ?</p>
+            <input type="radio" name="q1" value="1"> Oui <input type="radio" name="q1" value="0"> Non<br>
+            <p>2. Consommez-vous régulièrement des aliments certifiés bio ?</p>
+            <input type="radio" name="q2" value="1"> Oui <input type="radio" name="q2" value="0"> Non<br>
+            <p>3. Évitez-vous les produits alimentaires ultra-transformés ?</p>
+            <input type="radio" name="q3" value="1"> Oui <input type="radio" name="q3" value="0"> Non<br>
+            <p>4. Vérifiez-vous la présence d'additifs sur les étiquettes ?</p>
+            <input type="radio" name="q4" value="1"> Oui <input type="radio" name="q4" value="0"> Non<br>
+            <p>5. Limitez-vous votre consommation de plastique à usage unique ?</p>
+            <input type="radio" name="q5" value="1"> Oui <input type="radio" name="q5" value="0"> Non<br>
+            <p>6. Faites-vous attention à la provenance des pesticides dans votre alimentation ?</p>
+            <input type="radio" name="q6" value="1"> Oui <input type="radio" name="q6" value="0"> Non<br>
+            <p>7. Utilisez-vous des contenants en verre plutôt qu'en plastique pour vos repas ?</p>
+            <input type="radio" name="q7" value="1"> Oui <input type="radio" name="q7" value="0"> Non<br>
+            <p>8. Êtes-vous sensibilisé aux risques du radon dans votre logement ?</p>
+            <input type="radio" name="q8" value="1"> Oui <input type="radio" name="q8" value="0"> Non<br>
+            <p>9. Appliquez-vous une protection UV au quotidien lors d'exposition solaire ?</p>
+            <input type="radio" name="q9" value="1"> Oui <input type="radio" name="q9" value="0"> Non<br>
+            <p>10. Partagez-vous des conseils de santé environnementale avec vos proches ?</p>
+            <input type="radio" name="q10" value="1"> Oui <input type="radio" name="q10" value="0"> Non<br>
+            <br>
+            <button type="button" onclick="calculateScore()">Calculer mon score</button>
+        </form>
+        <div id="result" style="margin-top: 20px; font-weight: bold; color: #007bff;"></div>
+    </div>
 
     <script>
-      const translations = {
-        en: {
-          mainTitle: "FediEl AI — Clinical Pharmacy &amp; Pharmacovigilance Assistant",
-          classroomTag: "Secure classroom demonstration",
-          screeningTitle: "Clinical Pharmacological Screening",
-          labelRegimen: "🔬 Patient Treatment Regimen / Active Compounds &amp; Student Study Guide Mode:",
-          placeholder: "e.g., Aspirin 81mg + Warfarin, or Metformin history...",
-          runButton: "⚡ Run Pharmacological Screening",
-          aiTag: "AI generated clinical support",
-          reportTitle: "📋 Pharmacovigilance Report &amp; PharmD Study Guide Analysis",
-          statusDefault: "Enter a regimen to generate an interaction, contraindication, adverse effect, and study-note report.",
-          statusLoading: "Analyzing regimen... Please wait.",
-          footer: "© 2026 FediEl AI | Founded by Fedisel Musaw | Soli Deo Gloria"
-        },
-        fr: {
-          mainTitle: "FediEl AI — Assistant en Pharmacie Clinique &amp; Pharmacovigilance",
-          classroomTag: "Démonstration de classe sécurisée",
-          screeningTitle: "Analyse Pharmacologique Clinique",
-          labelRegimen: "🔬 Traitement du Patient / Composés Actifs &amp; Mode Guide d'Étude Étudiant :",
-          placeholder: "ex : Aspirine 81mg + Warfarine, ou historique Metformine...",
-          runButton: "⚡ Lancer l'Analyse Pharmacologique",
-          aiTag: "Support clinique généré par IA",
-          reportTitle: "📋 Rapport de Pharmacovigilance &amp; Analyse du Guide d'Étude PharmD",
-          statusDefault: "Entrez un traitement pour générer un rapport sur les interactions, contre-indications, effets indésirables et notes d'étude.",
-          statusLoading: "Analyse du traitement en cours... Veuillez patienter.",
-          footer: "© 2026 FediEl AI | Fondé par Fedisel Musaw | Soli Deo Gloria"
+        function showSection(id, btn) {
+            document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-nav'));
+            btn.classList.add('active-nav');
         }
-      };
 
-      function switchLanguage(lang) {
-        document.getElementById("main-title").innerHTML = translations[lang].mainTitle;
-        document.getElementById("classroom-tag").innerText = translations[lang].classroomTag;
-        document.getElementById("screening-title").innerText = translations[lang].screeningTitle;
-        document.getElementById("label-regimen").innerHTML = translations[lang].labelRegimen;
-        document.getElementById("regimen").placeholder = translations[lang].placeholder;
-        document.getElementById("run-button").innerText = translations[lang].runButton;
-        document.getElementById("ai-tag").innerText = translations[lang].aiTag;
-        document.getElementById("report-title").innerHTML = translations[lang].reportTitle;
-        
-        // Change le statut seulement s'il n'est pas déjà en train d'afficher un rapport
-        const statusElem = document.getElementById("status");
-        if (statusElem.innerText === translations.en.statusDefault || statusElem.innerText === translations.fr.statusDefault) {
-          statusElem.innerText = translations[lang].statusDefault;
-        } else if (statusElem.innerText === translations.en.statusLoading || statusElem.innerText === translations.fr.statusLoading) {
-          statusElem.innerText = translations[lang].statusLoading;
+        function envoyerMessage() {
+            const question = document.getElementById('chatInput').value;
+            document.getElementById('chatResponse').innerHTML = "<strong>Vous :</strong> " + question + "<br><br><em>(L'IA sera connectée plus tard)</em>";
         }
-        
-        document.getElementById("site-footer").innerHTML = translations[lang].footer;
-        
-        // Optionnel : On enregistre la langue choisie pour la passer à l'IA si besoin
-        window.currentLanguage = lang;
-      }
-      
-      window.currentLanguage = 'en';
+
+        function process(type) {
+            document.getElementById('toolResult').innerHTML = "Traitement " + type + " en cours... (Fonctionnalité IA à venir)";
+        }
+
+        function calculateScore() {
+            let score = 0;
+            const allQuestions = ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10"];
+            let answered = 0;
+            allQuestions.forEach(q => {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected) {
+                    score += parseInt(selected.value);
+                    answered++;
+                }
+            });
+            if (answered < 10) {
+                document.getElementById('result').innerHTML = "Veuillez répondre à toutes les questions pour voir votre résultat.";
+            } else {
+                document.getElementById('result').innerHTML = "Votre score de conscience environnementale : " + score + "/10";
+            }
+        }
     </script>
-
-    <script src="app.js"></script>
-  </body>
+</body>
 </html>
+
