@@ -2,103 +2,74 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>FediEL-AI | Health-Tech Platform</title>
+    <title>FediEL-Chem 2026</title>
     <style>
-        :root { --bg: #0f172a; --panel: #1e293b; --text: #f8fafc; --accent: #38bdf8; }
+        :root { --bg: #0f172a; --panel: #1e293b; --accent: #38bdf8; --text: #f8fafc; }
         body { font-family: 'Segoe UI', sans-serif; display: flex; margin: 0; background: var(--bg); color: var(--text); }
         
         /* Sidebar */
-        nav { width: 250px; height: 100vh; background: var(--panel); padding: 20px; position: fixed; }
-        nav h2 { color: var(--accent); font-size: 1.2em; }
-        nav button { display: block; width: 100%; padding: 12px; margin-bottom: 10px; background: none; border: 1px solid #334155; color: white; cursor: pointer; text-align: left; border-radius: 5px; }
-        nav button:hover { background: var(--accent); }
+        nav { width: 260px; height: 100vh; background: var(--panel); padding: 20px; position: fixed; box-shadow: 2px 0 5px rgba(0,0,0,0.3); }
+        nav h2 { color: var(--accent); font-size: 1.2em; margin-bottom: 30px; }
+        button.nav-btn { display: block; width: 100%; padding: 12px; margin-bottom: 8px; background: transparent; border: 1px solid #334155; color: white; cursor: pointer; text-align: left; border-radius: 5px; transition: 0.3s; }
+        button.nav-btn:hover { background: var(--accent); color: var(--bg); }
 
-        /* Main Content */
-        main { margin-left: 290px; padding: 40px; width: 100%; }
-        .disclaimer { background: #7f1d1d; padding: 10px; border-radius: 5px; font-size: 0.8em; margin-bottom: 20px; }
+        /* Main */
+        main { margin-left: 300px; padding: 40px; width: 100%; }
+        .lang-switch { position: absolute; top: 20px; right: 20px; }
         .section { display: none; }
         .active { display: block; }
-        textarea, input[type="file"] { width: 100%; background: var(--panel); border: 1px solid #334155; color: white; padding: 10px; margin-top: 10px; }
-        
-        /* Survey Styling */
-        .q-card { background: var(--panel); padding: 15px; margin-bottom: 15px; border-left: 4px solid var(--accent); }
+        .card { background: var(--panel); padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent); }
     </style>
 </head>
 <body>
 
 <nav>
-    <h2>FediEL-AI 2026</h2>
-    <button onclick="show('chat')">AI Chat Assistant</button>
-    <button onclick="show('pharma')">Pharmacovigilance & PharmD</button>
-    <button onclick="show('patient')">Patient Treatment Regimen</button>
-    <button onclick="show('tools')">Study Tools</button>
-    <button onclick="show('survey')">Health Survey</button>
+    <h2>FediEL-Chem 2026</h2>
+    <div id="menu">
+        <button class="nav-btn" onclick="show('chat')" data-en="AI Tutor" data-fr="Tuteur IA">AI Tutor</button>
+        <button class="nav-btn" onclick="show('quiz')" data-en="Quiz Generator" data-fr="Générateur de Quiz">Quiz Generator</button>
+        <button class="nav-btn" onclick="show('flash')" data-en="Flashcards" data-fr="Flashcards">Flashcards</button>
+        <button class="nav-btn" onclick="show('notes')" data-en="Study Notes" data-fr="Notes d'Étude">Study Notes</button>
+        <button class="nav-btn" onclick="show('mol')" data-en="Molecule Explorer" data-fr="Explorateur de Molécules">Molecule Explorer</button>
+        <button class="nav-btn" onclick="show('react')" data-en="Reaction Explorer" data-fr="Explorateur de Réactions">Reaction Explorer</button>
+        <button class="nav-btn" onclick="show('hw')" data-en="Homework Helper" data-fr="Aide aux Devoirs">Homework Helper</button>
+        <button class="nav-btn" onclick="show('lab')" data-en="Lab Chemistry Tools" data-fr="Outils de Chimie de Labo">Lab Chemistry Tools</button>
+    </div>
 </nav>
 
+<div class="lang-switch">
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="setLang('fr')">FR</button>
+</div>
+
 <main>
-    <div class="disclaimer">Only for learning purposes. | À but éducatif uniquement.</div>
-
-    <div id="chat" class="section active">
-        <h2>AI Assistant (Pharmacology/Chem)</h2>
-        <textarea id="aiInput" rows="5" placeholder="Posez votre question..."></textarea>
-        <button onclick="alert('IA en attente de connexion')">Envoyer</button>
+    <h1 data-en="Welcome to your Chemistry Portal" data-fr="Bienvenue sur votre portail de chimie">Welcome to your Chemistry Portal</h1>
+    
+    <div id="chat" class="section active card">
+        <h2 data-en="AI Tutor" data-fr="Tuteur IA">AI Tutor</h2>
+        <p data-en="Ask your chemistry questions here." data-fr="Posez vos questions de chimie ici.">Ask your chemistry questions here.</p>
     </div>
 
-    <div id="survey" class="section">
-        <h2>Health Survey (10 questions)</h2>
-        <form id="surveyForm"></form>
-        <button onclick="saveSurvey()">Enregistrer & Calculer le score</button>
-        <div id="surveyResult"></div>
+    <!-- Répète ce modèle pour toutes les sections -->
+    <div id="lab" class="section card">
+        <h2 data-en="Lab Chemistry Tools" data-fr="Outils de Chimie de Labo">Lab Chemistry Tools</h2>
+        <p data-en="Names and importance of lab equipment." data-fr="Noms et importance du matériel de laboratoire.">Names and importance of lab equipment.</p>
     </div>
 
-    <div id="tools" class="section">
-        <h2>Study Tools</h2>
-        <input type="file" id="docUpload">
-        <button onclick="alert('Traitement du document...')">Upload & Process Summary</button>
-    </div>
+    <footer style="margin-top:50px; font-size:0.8em; color:#64748b;">Founded by Fedisel Musaw © 2026</footer>
 </main>
 
-<footer style="position:fixed; bottom:10px; right:20px; font-size:0.7em;">Founded by Fedisel Musaw © 2026</footer>
-
 <script>
-    // Logic pour changer de section
     function show(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
     }
 
-    // Survey Logic
-    const questions = [
-        "Privilégiez-vous les produits locaux ?", "Consommez-vous bio ?", 
-        "Évitez-vous les ultra-transformés ?", "Vérifiez-vous les additifs ?",
-        "Limitez-vous le plastique ?", "Contrôlez-vous les pesticides ?",
-        "Utilisez-vous du verre ?", "Sensibilisé au radon ?",
-        "Protection UV quotidienne ?", "Partagez-vous les conseils ?"
-    ];
-
-    const form = document.getElementById('surveyForm');
-    questions.forEach((q, i) => {
-        form.innerHTML += `<div class="q-card">${i+1}. ${q}<br>
-            <input type="radio" name="q${i}" value="1"> Oui/Yes 
-            <input type="radio" name="q${i}" value="0"> Non/No</div>`;
-    });
-
-    function saveSurvey() {
-        let score = 0;
-        for(let i=0; i<10; i++) {
-            let val = document.querySelector(`input[name="q${i}"]:checked`);
-            if(val) score += parseInt(val.value);
-        }
-        localStorage.setItem('userScore', score);
-        document.getElementById('surveyResult').innerHTML = "<h3>Score : " + score + "/10</h3><p>Sauvegardé localement.</p>";
+    function setLang(lang) {
+        document.querySelectorAll('[data-en]').forEach(el => {
+            el.innerText = el.getAttribute('data-' + lang);
+        });
     }
 </script>
-
-    
 </body>
 </html>
-<!-- Bouton de changement de langue -->
-<div style="position: absolute; top: 10px; right: 20px;">
-    <button onclick="setLanguage('fr')">FR</button>
-    <button onclick="setLanguage('en')">EN</button>
-</div>
