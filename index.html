@@ -3,118 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FediEL-AI - Plateforme Éducative</title>
+    <title>FediEL-AI - Pharmacy & Health Platform</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; padding: 20px; line-height: 1.6; max-width: 800px; margin: auto; }
-        .disclaimer { background: #fff3cd; padding: 15px; border-left: 5px solid #ffc107; margin-bottom: 20px; font-size: 0.9em; }
-        nav { background: #f4f4f4; padding: 10px; display: flex; gap: 10px; flex-wrap: wrap; border-radius: 8px; margin-bottom: 20px; }
-        nav button { padding: 10px 20px; cursor: pointer; background-color: #f4f4f4; border: 1px solid #ccc; border-radius: 5px; transition: 0.3s; }
-        nav button:hover { background-color: #ddd; }
-        nav button.active-nav { background-color: #007bff; color: white; border-color: #0056b3; }
-        .section-content { display: none; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; line-height: 1.6; max-width: 900px; margin: auto; background-color: #f9f9f9; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        .glory-link { background: #333; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; }
+        .nav-menu { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+        button { padding: 10px; cursor: pointer; border: 1px solid #ccc; border-radius: 4px; }
+        .active-nav { background-color: #007bff; color: white; border-color: #0056b3; }
+        .section-content { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .active { display: block; }
-        textarea { width: 100%; height: 120px; margin-bottom: 10px; padding: 10px; }
+        footer { margin-top: 40px; text-align: center; font-size: 0.8em; color: #777; }
+        h2 { color: #007bff; }
     </style>
 </head>
 <body>
 
-    <h1>FediEL-AI</h1>
-    
-    <div class="disclaimer">
-        <strong>Avertissement :</strong> FediEL-AI est une plateforme expérimentale à but éducatif uniquement. Les informations générées par l'IA ne constituent pas un avis médical ou un diagnostic professionnel.
+    <div class="header">
+        <h1>FediEL-AI</h1>
+        <a href="glory..m" class="glory-link">glory..m</a>
     </div>
 
-    <nav>
-        <button class="active-nav" onclick="showSection('chat', this)">Assistant IA</button>
-        <button onclick="showSection('tools', this)">Outils Études</button>
+    <div class="nav-menu">
+        <button class="active-nav" onclick="showSection('chat', this)">Chat AI</button>
+        <button onclick="showSection('pharma', this)">Pharmacovigilance & PharmD</button>
+        <button onclick="showSection('patient', this)">Patient Regimen</button>
+        <button onclick="showSection('tools', this)">Outils/Tools</button>
+        <button onclick="showSection('chem', this)">Chemical</button>
         <button onclick="showSection('survey', this)">Survey Santé</button>
-    </nav>
+    </div>
 
+    <!-- AI CHAT -->
     <div id="chat" class="section-content active">
-        <h2>Assistant IA</h2>
-        <p>Posez votre question sur vos cours ou la pharmacologie.</p>
-        <textarea id="chatInput" placeholder="Posez votre question ici..." style="width: 100%; height: 80px;"></textarea>
-        <br>
-        <button onclick="envoyerMessage()">Envoyer</button>
-        <div id="chatResponse" style="margin-top: 15px; padding: 10px; border: 1px dashed #ccc;">
-            <em>La réponse de l'assistant s'affichera ici...</em>
-        </div>
+        <h2>Assistant IA / AI Assistant</h2>
+        <textarea style="width:100%; height:100px;" placeholder="Posez votre question... / Ask your question..."></textarea>
+        <br><button>Envoyer / Send</button>
     </div>
 
+    <!-- PHARMACOVIGILANCE -->
+    <div id="pharma" class="section-content">
+        <h2>Pharmacovigilance Report & PharmD Guide</h2>
+        <p>FR: Analyse des effets indésirables / EN: Adverse drug reaction analysis.</p>
+        <textarea style="width:100%; height:100px;"></textarea>
+    </div>
+
+    <!-- PATIENT REGIMEN -->
+    <div id="patient" class="section-content">
+        <h2>Patient Treatment Regimen / Protocole Patient</h2>
+        <p>Active Compound & Study Guide Note</p>
+        <textarea style="width:100%; height:100px;" placeholder="Détails du traitement..."></textarea>
+    </div>
+
+    <!-- OUTILS -->
     <div id="tools" class="section-content">
-        <h2>Outils d'Apprentissage</h2>
-        <textarea id="docInput" placeholder="Collez votre document ou texte ici..."></textarea>
-        <br>
-        <button onclick="process('summarize')">Résumer</button>
-        <button onclick="process('flashcards')">Générer Flashcards</button>
-        <button onclick="process('quiz')">Préparer un Quiz</button>
-        <div id="toolResult" style="margin-top:15px; padding:10px; border-top:1px solid #ccc;"></div>
+        <h2>Outils d'Étude / Study Tools</h2>
+        <button>Flashcards</button>
+        <button>Quizzes</button>
+        <button>Summary / Résumé</button>
     </div>
 
-    <div id="survey" class="section-content">
-        <h2>Survey : Alimentation & Environnement</h2>
-        <form id="surveyForm">
-            <p>1. Privilégiez-vous les produits locaux et de saison ?</p>
-            <input type="radio" name="q1" value="1"> Oui <input type="radio" name="q1" value="0"> Non<br>
-            <p>2. Consommez-vous régulièrement des aliments certifiés bio ?</p>
-            <input type="radio" name="q2" value="1"> Oui <input type="radio" name="q2" value="0"> Non<br>
-            <p>3. Évitez-vous les produits alimentaires ultra-transformés ?</p>
-            <input type="radio" name="q3" value="1"> Oui <input type="radio" name="q3" value="0"> Non<br>
-            <p>4. Vérifiez-vous la présence d'additifs sur les étiquettes ?</p>
-            <input type="radio" name="q4" value="1"> Oui <input type="radio" name="q4" value="0"> Non<br>
-            <p>5. Limitez-vous votre consommation de plastique à usage unique ?</p>
-            <input type="radio" name="q5" value="1"> Oui <input type="radio" name="q5" value="0"> Non<br>
-            <p>6. Faites-vous attention à la provenance des pesticides dans votre alimentation ?</p>
-            <input type="radio" name="q6" value="1"> Oui <input type="radio" name="q6" value="0"> Non<br>
-            <p>7. Utilisez-vous des contenants en verre plutôt qu'en plastique pour vos repas ?</p>
-            <input type="radio" name="q7" value="1"> Oui <input type="radio" name="q7" value="0"> Non<br>
-            <p>8. Êtes-vous sensibilisé aux risques du radon dans votre logement ?</p>
-            <input type="radio" name="q8" value="1"> Oui <input type="radio" name="q8" value="0"> Non<br>
-            <p>9. Appliquez-vous une protection UV au quotidien lors d'exposition solaire ?</p>
-            <input type="radio" name="q9" value="1"> Oui <input type="radio" name="q9" value="0"> Non<br>
-            <p>10. Partagez-vous des conseils de santé environnementale avec vos proches ?</p>
-            <input type="radio" name="q10" value="1"> Oui <input type="radio" name="q10" value="0"> Non<br>
-            <br>
-            <button type="button" onclick="calculateScore()">Calculer mon score</button>
-        </form>
-        <div id="result" style="margin-top: 20px; font-weight: bold; color: #007bff;"></div>
+    <!-- CHEMICAL -->
+    <div id="chem" class="section-content">
+        <h2>Chemical Data / Données Chimiques</h2>
+        <p>Formules et structures / Formulas and structures.</p>
     </div>
+
+    <!-- SURVEY -->
+    <div id="survey" class="section-content">
+        <h2>Survey Santé / Health Survey</h2>
+        <p>1. FR: Mangez-vous local ? / EN: Do you eat local?</p>
+        <input type="radio" name="q1" value="1"> Oui/Yes <input type="radio" name="q1" value="0"> Non/No
+    </div>
+
+    <footer>
+        Created by Fedisel Musaw 2026
+    </footer>
 
     <script>
         function showSection(id, btn) {
             document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-nav'));
+            document.querySelectorAll('.nav-menu button').forEach(b => b.classList.remove('active-nav'));
             btn.classList.add('active-nav');
-        }
-
-        function envoyerMessage() {
-            const question = document.getElementById('chatInput').value;
-            document.getElementById('chatResponse').innerHTML = "<strong>Vous :</strong> " + question + "<br><br><em>(L'IA sera connectée plus tard)</em>";
-        }
-
-        function process(type) {
-            document.getElementById('toolResult').innerHTML = "Traitement " + type + " en cours... (Fonctionnalité IA à venir)";
-        }
-
-        function calculateScore() {
-            let score = 0;
-            const allQuestions = ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10"];
-            let answered = 0;
-            allQuestions.forEach(q => {
-                const selected = document.querySelector(`input[name="${q}"]:checked`);
-                if (selected) {
-                    score += parseInt(selected.value);
-                    answered++;
-                }
-            });
-            if (answered < 10) {
-                document.getElementById('result').innerHTML = "Veuillez répondre à toutes les questions pour voir votre résultat.";
-            } else {
-                document.getElementById('result').innerHTML = "Votre score de conscience environnementale : " + score + "/10";
-            }
         }
     </script>
 </body>
 </html>
-
