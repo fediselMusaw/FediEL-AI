@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FediEl-AI Clinical Pharmacy Assistant</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Petit style discret pour positionner le bouton de langue en haut à droite */
+      .lang-switcher {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
+      }
+      .lang-switcher select {
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background-color: white;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .app-shell {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="lang-switcher">
+        <select id="lang-select" onchange="switchLanguage(this.value)">
+          <option value="en">🇺🇸 English</option>
+          <option value="fr">🇫🇷 Français</option>
+        </select>
+      </div>
+
+      <header class="site-header">
+        <div class="brand-lockup">
+          <div class="logo-frame" aria-hidden="true">
+            <img
+              src="logo.png"
+              alt="FediEl Pharmacy Emblem"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+            />
+            <span class="logo-fallback">⚕️</span>
+          </div>
+          <div>
+            <p class="project-title">FediEl-AI</p>
+            <h1 id="main-title">FediEl AI — Clinical Pharmacy &amp; Pharmacovigilance Assistant</h1>
+          </div>
+        </div>
+      </header>
+
+      <main class="clinical-workspace">
+        <section class="screening-panel" aria-labelledby="screening-title">
+          <div class="panel-heading">
+            <p id="classroom-tag" class="eyebrow">Secure classroom demonstration</p>
+            <h2 id="screening-title">Clinical Pharmacological Screening</h2>
+          </div>
+
+          <form id="screening-form">
+            <label for="regimen" id="label-regimen">
+              🔬 Patient Treatment Regimen / Active Compounds &amp; Student Study Guide Mode:
+            </label>
+            <textarea
+              id="regimen"
+              name="regimen"
+              rows="8"
+              placeholder="e.g., Aspirin 81mg + Warfarin, or Metformin history..."
+              required
+            ></textarea>
+            <button type="submit" id="run-button">⚡ Run Pharmacological Screening</button>
+          </form>
+        </section>
+
+        <section class="report-panel" aria-live="polite">
+          <div class="panel-heading">
+            <p id="ai-tag" class="eyebrow">AI generated clinical support</p>
+            <h2 id="report-title">📋 Pharmacovigilance Report &amp; PharmD Study Guide Analysis</h2>
+          </div>
+          <div id="status" class="status-message">
+            Enter a regimen to generate an interaction, contraindication, adverse effect, and study-note report.
+          </div>
+          <article id="report" class="report-output"></article>
+        </section>
+      </main>
+    </div>
+
+    <footer id="site-footer">
+      © 2026 FediEl AI | Founded by Fedisel Musaw | Soli Deo Gloria
+    </footer>
+
+    <script>
+      const translations = {
+        en: {
+          mainTitle: "FediEl AI — Clinical Pharmacy &amp; Pharmacovigilance Assistant",
+          classroomTag: "Secure classroom demonstration",
+          screeningTitle: "Clinical Pharmacological Screening",
+          labelRegimen: "🔬 Patient Treatment Regimen / Active Compounds &amp; Student Study Guide Mode:",
+          placeholder: "e.g., Aspirin 81mg + Warfarin, or Metformin history...",
+          runButton: "⚡ Run Pharmacological Screening",
+          aiTag: "AI generated clinical support",
+          reportTitle: "📋 Pharmacovigilance Report &amp; PharmD Study Guide Analysis",
+          statusDefault: "Enter a regimen to generate an interaction, contraindication, adverse effect, and study-note report.",
+          statusLoading: "Analyzing regimen... Please wait.",
+          footer: "© 2026 FediEl AI | Founded by Fedisel Musaw | Soli Deo Gloria"
+        },
+        fr: {
+          mainTitle: "FediEl AI — Assistant en Pharmacie Clinique &amp; Pharmacovigilance",
+          classroomTag: "Démonstration de classe sécurisée",
+          screeningTitle: "Analyse Pharmacologique Clinique",
+          labelRegimen: "🔬 Traitement du Patient / Composés Actifs &amp; Mode Guide d'Étude Étudiant :",
+          placeholder: "ex : Aspirine 81mg + Warfarine, ou historique Metformine...",
+          runButton: "⚡ Lancer l'Analyse Pharmacologique",
+          aiTag: "Support clinique généré par IA",
+          reportTitle: "📋 Rapport de Pharmacovigilance &amp; Analyse du Guide d'Étude PharmD",
+          statusDefault: "Entrez un traitement pour générer un rapport sur les interactions, contre-indications, effets indésirables et notes d'étude.",
+          statusLoading: "Analyse du traitement en cours... Veuillez patienter.",
+          footer: "© 2026 FediEl AI | Fondé par Fedisel Musaw | Soli Deo Gloria"
+        }
+      };
+
+      function switchLanguage(lang) {
+        document.getElementById("main-title").innerHTML = translations[lang].mainTitle;
+        document.getElementById("classroom-tag").innerText = translations[lang].classroomTag;
+        document.getElementById("screening-title").innerText = translations[lang].screeningTitle;
+        document.getElementById("label-regimen").innerHTML = translations[lang].labelRegimen;
+        document.getElementById("regimen").placeholder = translations[lang].placeholder;
+        document.getElementById("run-button").innerText = translations[lang].runButton;
+        document.getElementById("ai-tag").innerText = translations[lang].aiTag;
+        document.getElementById("report-title").innerHTML = translations[lang].reportTitle;
+        
+        // Change le statut seulement s'il n'est pas déjà en train d'afficher un rapport
+        const statusElem = document.getElementById("status");
+        if (statusElem.innerText === translations.en.statusDefault || statusElem.innerText === translations.fr.statusDefault) {
+          statusElem.innerText = translations[lang].statusDefault;
+        } else if (statusElem.innerText === translations.en.statusLoading || statusElem.innerText === translations.fr.statusLoading) {
+          statusElem.innerText = translations[lang].statusLoading;
+        }
+        
+        document.getElementById("site-footer").innerHTML = translations[lang].footer;
+        
+        // Optionnel : On enregistre la langue choisie pour la passer à l'IA si besoin
+        window.currentLanguage = lang;
+      }
+      
+      window.currentLanguage = 'en';
+    </script>
+
+    <script src="app.js"></script>
+  </body>
+</html>
