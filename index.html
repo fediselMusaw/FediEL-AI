@@ -276,7 +276,7 @@ async function rechercherMolecule(){
 
 <h2>🧪 Lab Chemistry Tools</h2>
 
-<select onchange="showLabTool(this.value)">
+<select id="labSelect">
     <option value="">Select a laboratory tool</option>
 
     <option value="beaker">Beaker</option>
@@ -296,8 +296,11 @@ async function rechercherMolecule(){
     <option value="washBottle">Wash Bottle</option>
 </select>
 
-<div id="labResult" style="margin-top:20px;">
-    Select a laboratory tool to view details.
-</div>
+
+    <button onclick="showLabTool()">Show Tool</button>
+
+<div id="labResult" style="margin-top:20px;"></div>
 
 </div>
+
+
