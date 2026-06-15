@@ -167,119 +167,110 @@ async function rechercherMolecule(){
 console.log("FediEL-Chem loaded successfully");
 ```
 const labTools = {
+
   beaker: {
     name: "Beaker",
-    image: "images/beaker.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Beaker.png",
     use: "Used to hold, mix, and heat liquids.",
     precaution: "Not suitable for precise volume measurements."
   },
 
   erlenmeyer: {
     name: "Erlenmeyer Flask",
-    image: "images/erlenmeyer.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/29/Erlenmeyer_flask.png",
     use: "Used for mixing and storing solutions.",
     precaution: "Do not seal while heating."
   },
 
   burette: {
     name: "Burette",
-    image: "images/burette.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Burette.png",
     use: "Used in titration experiments.",
     precaution: "Check for air bubbles before use."
   },
 
   pipette: {
     name: "Pipette",
-    image: "images/pipette.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Pipette.jpg",
     use: "Transfers precise liquid volumes.",
     precaution: "Use the correct pipette filler."
   },
 
   graduatedCylinder: {
     name: "Graduated Cylinder",
-    image: "images/graduated-cylinder.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Graduated_cylinder.jpg",
     use: "Measures liquid volume.",
     precaution: "Read volume at eye level."
   },
 
   funnel: {
     name: "Funnel",
-    image: "images/funnel.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Laboratory_funnel.jpg",
     use: "Transfers liquids and assists filtration.",
     precaution: "Use proper filter paper if filtering."
   },
 
   balance: {
     name: "Electronic Balance",
-    image: "images/balance.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Analytical_balance.jpg",
     use: "Measures mass accurately.",
     precaution: "Calibrate before use."
   },
 
   thermometer: {
     name: "Thermometer",
-    image: "images/thermometer.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Thermometer.jpg",
     use: "Measures temperature.",
     precaution: "Avoid sudden temperature shocks."
   },
 
   stirringRod: {
     name: "Glass Stirring Rod",
-    image: "images/stirring-rod.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Glass_stirring_rod.jpg",
     use: "Mixes solutions.",
     precaution: "Handle carefully to avoid breakage."
   },
 
   ringStand: {
     name: "Ring Stand",
-    image: "images/ring-stand.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Ring_stand_lab.jpg",
     use: "Supports laboratory apparatus.",
     precaution: "Ensure stability before heating."
   },
 
   testTube: {
     name: "Test Tube",
-    image: "images/test-tube.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Test_tube.jpg",
     use: "Holds small quantities of chemicals.",
     precaution: "Point away when heating."
   },
 
   watchGlass: {
     name: "Watch Glass",
-    image: "images/watch-glass.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Watch_glass.jpg",
     use: "Evaporates small samples.",
     precaution: "Handle carefully."
   },
 
   crucible: {
     name: "Crucible",
-    image: "images/crucible.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ceramic_crucible.jpg",
     use: "Heats substances at high temperatures.",
     precaution: "Use crucible tongs."
   },
 
   tongs: {
     name: "Crucible Tongs",
-    image: "images/tongs.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Tongs_lab.jpg",
     use: "Handles hot equipment.",
     precaution: "Ensure a firm grip."
   },
 
   washBottle: {
     name: "Wash Bottle",
-    image: "images/wash-bottle.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Wash-bottle.jpg",
     use: "Dispenses distilled water.",
     precaution: "Label contents clearly."
   }
+
 };
-
-function showLabTool(toolId) {
-  const tool = labTools[toolId];
-
-  document.getElementById("labResult").innerHTML = `
-    <h3>${tool.name}</h3>
-    <img src="${tool.image}" alt="${tool.name}" width="220">
-    <p><strong>Use:</strong> ${tool.use}</p>
-    <p><strong>Precaution:</strong> ${tool.precaution}</p>
-  `;
-}
