@@ -1,86 +1,273 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>FediEL-Chem 2026</title>
-    <style>
-        :root { --bg: #0f172a; --panel: #1e293b; --accent: #38bdf8; --text: #f8fafc; }
-        body { font-family: 'Segoe UI', sans-serif; display: flex; margin: 0; background: var(--bg); color: var(--text); }
-        
-        /* Sidebar */
-        nav { width: 260px; height: 100vh; background: var(--panel); padding: 20px; position: fixed; box-shadow: 2px 0 5px rgba(0,0,0,0.3); }
-        nav h2 { color: var(--accent); font-size: 1.2em; margin-bottom: 30px; }
-        button.nav-btn { display: block; width: 100%; padding: 12px; margin-bottom: 8px; background: transparent; border: 1px solid #334155; color: white; cursor: pointer; text-align: left; border-radius: 5px; transition: 0.3s; }
-        button.nav-btn:hover { background: var(--accent); color: var(--bg); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FediEL-Chem 2026</title>
 
-        /* Main */
-        main { margin-left: 300px; padding: 40px; width: 100%; }
-        .lang-switch { position: absolute; top: 20px; right: 20px; }
-        .section { display: none; }
-        .active { display: block; }
-        .card { background: var(--panel); padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent); }
-    </style>
+<style>
+:root{
+    --bg:#0f172a;
+    --panel:#1e293b;
+    --accent:#38bdf8;
+    --text:#f8fafc;
+}
+
+body{
+    margin:0;
+    font-family:Segoe UI,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+}
+
+nav{
+    width:260px;
+    height:100vh;
+    background:var(--panel);
+    padding:20px;
+    position:fixed;
+}
+
+nav h2{
+    color:var(--accent);
+}
+
+.nav-btn{
+    display:block;
+    width:100%;
+    padding:12px;
+    margin-bottom:8px;
+    background:transparent;
+    color:white;
+    border:1px solid #334155;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.nav-btn:hover{
+    background:var(--accent);
+    color:black;
+}
+
+main{
+    margin-left:300px;
+    padding:40px;
+    width:100%;
+}
+
+.section{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+
+.card{
+    background:var(--panel);
+    padding:20px;
+    border-radius:10px;
+    border-left:4px solid var(--accent);
+}
+
+input{
+    padding:10px;
+    width:300px;
+    border:none;
+    border-radius:5px;
+}
+
+button.search-btn{
+    padding:10px 15px;
+    background:var(--accent);
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin-left:10px;
+}
+
+.lang-switch{
+    position:fixed;
+    top:10px;
+    right:10px;
+}
+
+img{
+    max-width:250px;
+    border-radius:8px;
+    background:white;
+    padding:5px;
+}
+</style>
 </head>
+
 <body>
 
 <nav>
-    <h2>FediEL-Chem 2026</h2>
-    <div id="menu">
-        <button class="nav-btn" onclick="show('chat')" data-en="AI Tutor" data-fr="Tuteur IA">AI Tutor</button>
-        <button class="nav-btn" onclick="show('quiz')" data-en="Quiz Generator" data-fr="Générateur de Quiz">Quiz Generator</button>
-        <button class="nav-btn" onclick="show('flash')" data-en="Flashcards" data-fr="Flashcards">Flashcards</button>
-        <button class="nav-btn" onclick="show('notes')" data-en="Study Notes" data-fr="Notes d'Étude">Study Notes</button>
-        <button class="nav-btn" onclick="show('mol')" data-en="Molecule Explorer" data-fr="Explorateur de Molécules">Molecule Explorer</button>
-        <button class="nav-btn" onclick="show('react')" data-en="Reaction Explorer" data-fr="Explorateur de Réactions">Reaction Explorer</button>
-        <button class="nav-btn" onclick="show('hw')" data-en="Homework Helper" data-fr="Aide aux Devoirs">Homework Helper</button>
-        <button class="nav-btn" onclick="show('lab')" data-en="Lab Chemistry Tools" data-fr="Outils de Chimie de Labo">Lab Chemistry Tools</button>
-    </div>
+<h2>FediEL-Chem 2026</h2>
+
+<button class="nav-btn" onclick="show('chat')">AI Tutor</button>
+<button class="nav-btn" onclick="show('quiz')">Quiz Generator</button>
+<button class="nav-btn" onclick="show('flash')">Flashcards</button>
+<button class="nav-btn" onclick="show('notes')">Study Notes</button>
+<button class="nav-btn" onclick="show('mol')">Molecule Explorer</button>
+<button class="nav-btn" onclick="show('react')">Reaction Explorer</button>
+<button class="nav-btn" onclick="show('hw')">Homework Helper</button>
+<button class="nav-btn" onclick="show('lab')">Lab Chemistry Tools</button>
 </nav>
 
 <div class="lang-switch">
-    <button onclick="setLang('en')">EN</button>
-    <button onclick="setLang('fr')">FR</button>
+<button onclick="setLang('en')">EN</button>
+<button onclick="setLang('fr')">FR</button>
 </div>
 
 <main>
-    <h1 data-en="Welcome to your Chemistry Portal" data-fr="Bienvenue sur votre portail de chimie">Welcome to your Chemistry Portal</h1>
-    
-    <div id="chat" class="section active card">
-        <h2 data-en="AI Tutor" data-fr="Tuteur IA">AI Tutor</h2>
-        <p data-en="Ask your chemistry questions here." data-fr="Posez vos questions de chimie ici.">Ask your chemistry questions here.</p>
-    </div>
 
-    <!-- Répète ce modèle pour toutes les sections -->
-    <div id="lab" class="section card">
-        <h2 data-en="Lab Chemistry Tools" data-fr="Outils de Chimie de Labo">Lab Chemistry Tools</h2>
-        <p data-en="Names and importance of lab equipment." data-fr="Noms et importance du matériel de laboratoire.">Names and importance of lab equipment.</p>
-    </div>
+<h1>Welcome to FediEL-Chem 2026</h1>
 
-    <footer style="margin-top:50px; font-size:0.8em; color:#64748b;">Founded by Fedisel Musaw © 2026</footer>
+<div id="chat" class="section active card">
+<h2>AI Tutor</h2>
+<p>Ask chemistry questions here.</p>
+</div>
+
+<div id="quiz" class="section card">
+<h2>Quiz Generator</h2>
+<p>Coming soon.</p>
+</div>
+
+<div id="flash" class="section card">
+<h2>Flashcards</h2>
+<p>Coming soon.</p>
+</div>
+
+<div id="notes" class="section card">
+<h2>Study Notes</h2>
+<p>Coming soon.</p>
+</div>
+
+<div id="react" class="section card">
+<h2>Reaction Explorer</h2>
+<p>Coming soon.</p>
+</div>
+
+<div id="hw" class="section card">
+<h2>Homework Helper</h2>
+<p>Coming soon.</p>
+</div>
+
+<div id="lab" class="section card">
+<h2>Lab Chemistry Tools</h2>
+<p>Lab equipment and chemistry tools.</p>
+</div>
+
+<div id="mol" class="section card">
+<h2>🧪 Molecule Explorer</h2>
+
+<input
+type="text"
+id="molInput"
+placeholder="aspirine, glucose, caffeine...">
+
+<button
+class="search-btn"
+onclick="rechercherMolecule()">
+Search
+</button>
+
+<div id="molResult" style="margin-top:20px;">
+Results will appear here.
+</div>
+</div>
+
+<footer style="margin-top:50px;color:#94a3b8;">
+Founded by Fedisel Musaw © 2026
+</footer>
+
 </main>
 
 <script>
-    function show(id) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+
+function show(id){
+    document.querySelectorAll('.section').forEach(section=>{
+        section.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+}
+
+function setLang(lang){
+    console.log("Language:",lang);
+}
+
+const dicoChimie = {
+    "eau":"water",
+    "aspirine":"aspirin",
+    "glucose":"glucose",
+    "caféine":"caffeine",
+    "éthanol":"ethanol",
+    "paracétamol":"paracetamol",
+    "ibuprofène":"ibuprofen"
+};
+
+async function rechercherMolecule(){
+
+    const input =
+    document.getElementById("molInput")
+    .value
+    .trim()
+    .toLowerCase();
+
+    const resultatDiv =
+    document.getElementById("molResult");
+
+    if(!input){
+        resultatDiv.innerHTML =
+        "Please enter a molecule name.";
+        return;
     }
 
-    function setLang(lang) {
-        document.querySelectorAll('[data-en]').forEach(el => {
-            el.innerText = el.getAttribute('data-' + lang);
-        });
+    const nomAnglais =
+    dicoChimie[input] || input;
+
+    resultatDiv.innerHTML =
+    "Searching molecule...";
+
+    try{
+
+        const response = await fetch(
+        `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${nomAnglais}/property/MolecularFormula,MolecularWeight/JSON`
+        );
+
+        const data = await response.json();
+
+        const props =
+        data.PropertyTable.Properties[0];
+
+        const imageUrl =
+        `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${nomAnglais}/PNG`;
+
+        resultatDiv.innerHTML = `
+        <img src="${imageUrl}">
+        <br><br>
+
+        <strong>Name:</strong> ${nomAnglais}<br>
+        <strong>Formula:</strong> ${props.MolecularFormula}<br>
+        <strong>Molecular Weight:</strong> ${props.MolecularWeight} g/mol
+        `;
+
+    }catch(error){
+
+        resultatDiv.innerHTML =
+        "Molecule not found.";
+
+        console.error(error);
     }
+}
+
 </script>
+
 </body>
 </html>
-
-<div id="mol" class="section card">
-    <h2 data-en="Molecule Explorer" data-fr="Explorateur de Molécules">Molecule Explorer</h2>
-    
-    <input type="text" id="molInput" placeholder="ex: aspirine, glucose...">
-    <button onclick="rechercherMolecule()" data-en="Search" data-fr="Rechercher">Search</button>
-    
-    <div id="molResult" style="margin-top:20px;">
-        <p data-en="Results will appear here" data-fr="Les résultats apparaîtront ici">Results will appear here</p>
-    </div>
-</div>
+```
